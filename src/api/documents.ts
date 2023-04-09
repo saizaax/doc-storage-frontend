@@ -12,13 +12,13 @@ export const getDocuments = async () => {
 
 export const addDocument = async (data: AddDocumentRequest) => {
   const formData = new FormData()
-  
+
   formData.append("name", data.name)
   formData.append("description", data.description)
   formData.append("file", data.file as File)
 
   return await API.post("/documents/upload", formData, {
-    headers: {...getHeaders(), "Content-Type": "multipart/form-data"},
+    headers: { ...getHeaders(), "Content-Type": "multipart/form-data" }
   })
     .then((res) => res.data)
     .catch((err) => err.response.data)
@@ -26,13 +26,13 @@ export const addDocument = async (data: AddDocumentRequest) => {
 
 export const addFile = async (data: AddFileRequest) => {
   const formData = new FormData()
-  
+
   formData.append("name", data.name)
   formData.append("description", data.description)
   formData.append("file", data.file as File)
 
   return await API.post(`/documents/upload/${data.documentId}`, formData, {
-    headers: {...getHeaders(), "Content-Type": "multipart/form-data"},
+    headers: { ...getHeaders(), "Content-Type": "multipart/form-data" }
   })
     .then((res) => res.data)
     .catch((err) => err.response.data)

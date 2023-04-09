@@ -56,14 +56,7 @@ export const Login: FC<Props> = () => {
         </Link>
       </Text>
 
-      <Paper
-        withBorder
-        shadow="md"
-        p={30}
-        mt={30}
-        radius="md"
-        sx={{ width: "100%" }}
-      >
+      <Paper withBorder shadow="md" p={30} mt={30} radius="md" sx={{ width: "100%" }}>
         <TextInput
           label="Email"
           placeholder="me@example.com"

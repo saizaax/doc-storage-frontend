@@ -110,16 +110,8 @@ export const Convert: FC<Props> = () => {
           <Title order={2}>Конвертация файлов</Title>
         </Flex>
         <Flex align="center" gap={20} justify="space-between">
-          <MultiSelect
-            data={formats}
-            placeholder="Форматы файлов"
-            radius="md"
-          />
-          <Input
-            icon={<IconSearch size="1rem" />}
-            placeholder="Поиск"
-            radius="md"
-          />
+          <MultiSelect data={formats} placeholder="Форматы файлов" radius="md" />
+          <Input icon={<IconSearch size="1rem" />} placeholder="Поиск" radius="md" />
         </Flex>
         <Accordion chevronPosition="right" variant="contained" radius="md">
           {items}

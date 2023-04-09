@@ -1,14 +1,5 @@
-import {
-  ColorScheme,
-  ColorSchemeProvider,
-  MantineProvider
-} from "@mantine/core"
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate
-} from "react-router-dom"
+import { ColorScheme, ColorSchemeProvider, MantineProvider } from "@mantine/core"
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import { AppRoutes } from "./AppRoutes"
 import { useState } from "react"
 import { QueryClient, QueryClientProvider } from "react-query"

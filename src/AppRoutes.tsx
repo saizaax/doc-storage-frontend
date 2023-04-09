@@ -1,17 +1,17 @@
 import React, { FC, useEffect, useState } from "react"
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
-import { Login } from "./pages/Login";
-import { Register } from "./pages/Register";
-import { Dashboard } from "./pages/Dashboard";
-import { Documents } from "./pages/Documents";
-import { useQuery } from "react-query";
-import { validateToken } from "./api/auth";
-import { Loader } from "@mantine/core";
-import { userAtom } from "./atoms/user";
-import { useAtom } from "jotai";
-import { Convert } from "./pages/Convert";
-import { Vision } from "./pages/Vision";
-import { Translate } from "./pages/Translate";
+import { Login } from "./pages/Login"
+import { Register } from "./pages/Register"
+import { Dashboard } from "./pages/Dashboard"
+import { Documents } from "./pages/Documents"
+import { useQuery } from "react-query"
+import { validateToken } from "./api/auth"
+import { Loader } from "@mantine/core"
+import { userAtom } from "./atoms/user"
+import { useAtom } from "jotai"
+import { Convert } from "./pages/Convert"
+import { Vision } from "./pages/Vision"
+import { Translate } from "./pages/Translate"
 
 interface Props {}
 
@@ -28,7 +28,7 @@ export const AppRoutes: FC<Props> = () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => setLoading(isLoading), 100)
-    
+
     return () => {
       clearTimeout(timeout)
     }
@@ -40,10 +40,7 @@ export const AppRoutes: FC<Props> = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route
-        path="/"
-        element={user.isAuthorized ? <Dashboard /> : <Login />}
-      >
+      <Route path="/" element={user.isAuthorized ? <Dashboard /> : <Login />}>
         <Route path="documents" element={<Documents />} />
         <Route path="convert" element={<Convert />} />
         <Route path="vision" element={<Vision />} />

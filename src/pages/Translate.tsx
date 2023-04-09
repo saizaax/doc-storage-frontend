@@ -11,7 +11,7 @@ import {
   Box,
   Table,
   Divider,
-  Anchor,
+  Anchor
 } from "@mantine/core"
 import { IconSearch } from "@tabler/icons-react"
 import { useQuery } from "react-query"
@@ -72,13 +72,7 @@ export const Translate: FC<Props> = () => {
         </td>
         <td>
           <Flex justify="flex-end">
-            <Anchor
-              onClick={() =>
-                saveTextAsFile(element?.content, `${element?.id}.txt`)
-              }
-            >
-              Скачать
-            </Anchor>
+            <Anchor onClick={() => saveTextAsFile(element?.content, `${element?.id}.txt`)}>Скачать</Anchor>
           </Flex>
         </td>
       </tr>
@@ -109,16 +103,8 @@ export const Translate: FC<Props> = () => {
           <Title order={2}>Перевод текста</Title>
         </Flex>
         <Flex align="center" gap={20} justify="space-between">
-          <MultiSelect
-            data={formats}
-            placeholder="Форматы файлов"
-            radius="md"
-          />
-          <Input
-            icon={<IconSearch size="1rem" />}
-            placeholder="Поиск"
-            radius="md"
-          />
+          <MultiSelect data={formats} placeholder="Форматы файлов" radius="md" />
+          <Input icon={<IconSearch size="1rem" />} placeholder="Поиск" radius="md" />
         </Flex>
         <Accordion chevronPosition="right" variant="contained" radius="md">
           {items}

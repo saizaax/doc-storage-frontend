@@ -1,12 +1,5 @@
 import React, { FC } from "react"
-import {
-  Accordion,
-  AccordionControlProps,
-  ActionIcon,
-  Anchor,
-  Box,
-  Menu
-} from "@mantine/core"
+import { Accordion, AccordionControlProps, ActionIcon, Anchor, Box, Menu } from "@mantine/core"
 import { IconCirclePlus, IconDots, IconFileDownload, IconTransform } from "@tabler/icons-react"
 import { useDisclosure } from "@mantine/hooks"
 import { ConvertModal } from "../modals/ConvertModal"
@@ -17,8 +10,7 @@ interface Props extends AccordionControlProps {
 }
 
 export const ConvertMenu: FC<Props> = (props: Props) => {
-  const [openedUpload, { open: openUpload, close: closeUpload }] =
-    useDisclosure(false)
+  const [openedUpload, { open: openUpload, close: closeUpload }] = useDisclosure(false)
 
   return (
     <>

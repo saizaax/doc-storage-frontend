@@ -1,11 +1,4 @@
-import {
-  Button,
-  FileInput,
-  Flex,
-  Modal,
-  TextInput,
-  Textarea
-} from "@mantine/core"
+import { Button, FileInput, Flex, Modal, TextInput, Textarea } from "@mantine/core"
 import React, { FC, useEffect, useState } from "react"
 import { useMutation, useQueryClient } from "react-query"
 import { addDocument } from "../../api/documents"
@@ -24,9 +17,7 @@ export const UploadDocumentModal: FC<Props> = ({ opened, close }) => {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
 
-  const { mutate, isLoading, data } = useMutation(() =>
-    addDocument({ file, name, description })
-  )
+  const { mutate, isLoading, data } = useMutation(() => addDocument({ file, name, description }))
 
   const isDisabled = !name || !file
 
@@ -54,13 +45,7 @@ export const UploadDocumentModal: FC<Props> = ({ opened, close }) => {
   }, [data])
 
   return (
-    <Modal
-      opened={opened}
-      onClose={close}
-      title="Загрузить новый документ"
-      radius="md"
-      centered
-    >
+    <Modal opened={opened} onClose={close} title="Загрузить новый документ" radius="md" centered>
       <Flex direction="column" gap={20}>
         <TextInput
           label="Название документа"
@@ -87,11 +72,7 @@ export const UploadDocumentModal: FC<Props> = ({ opened, close }) => {
           accept=".jpg, .jpeg, .png, .pdf, .doc, .docx"
           radius="md"
         />
-        <Button
-          disabled={isDisabled}
-          loading={isLoading}
-          onClick={() => mutate()}
-        >
+        <Button disabled={isDisabled} loading={isLoading} onClick={() => mutate()}>
           Загрузить
         </Button>
       </Flex>

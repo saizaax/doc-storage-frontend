@@ -32,22 +32,13 @@ export const Dashboard: FC = () => {
             <MainLinks />
           </Navbar.Section>
           <Navbar.Section>
-            <User
-              username={data?.username}
-              email={data?.email}
-              avatar={data?.avatar}
-            />
+            <User username={data?.username} email={data?.email} avatar={data?.avatar} />
           </Navbar.Section>
         </Navbar>
       }
       header={
         <Header height={60} sx={{ width: "100%" }}>
-          <Flex
-            justify="space-between"
-            align="center"
-            px={20}
-            sx={{ height: "100%" }}
-          >
+          <Flex justify="space-between" align="center" px={20} sx={{ height: "100%" }}>
             <Logo colorScheme="light" />
             <Button variant="light" radius="md" mr={10} onClick={handleLogOut}>
               Выйти

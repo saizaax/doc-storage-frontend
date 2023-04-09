@@ -1,19 +1,6 @@
 import React, { FC } from "react"
-import {
-  Accordion,
-  AccordionControlProps,
-  ActionIcon,
-  Anchor,
-  Box,
-  Menu
-} from "@mantine/core"
-import {
-  IconCirclePlus,
-  IconDots,
-  IconFileDownload,
-  IconLanguage,
-  IconTrash
-} from "@tabler/icons-react"
+import { Accordion, AccordionControlProps, ActionIcon, Anchor, Box, Menu } from "@mantine/core"
+import { IconCirclePlus, IconDots, IconFileDownload, IconLanguage, IconTrash } from "@tabler/icons-react"
 import { useDisclosure } from "@mantine/hooks"
 import { TranslateModal } from "../modals/TranslateModal"
 
@@ -23,8 +10,7 @@ interface Props extends AccordionControlProps {
 }
 
 export const TranslateMenu: FC<Props> = (props: Props) => {
-  const [openedUpload, { open: openUpload, close: closeUpload }] =
-    useDisclosure(false)
+  const [openedUpload, { open: openUpload, close: closeUpload }] = useDisclosure(false)
 
   return (
     <>

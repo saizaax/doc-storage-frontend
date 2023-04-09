@@ -1,20 +1,6 @@
 import React, { FC, useEffect } from "react"
-import {
-  Accordion,
-  AccordionControlProps,
-  ActionIcon,
-  Anchor,
-  Box,
-  Loader,
-  Menu
-} from "@mantine/core"
-import {
-  IconCheck,
-  IconCirclePlus,
-  IconDots,
-  IconFileDownload,
-  IconFileTextAi
-} from "@tabler/icons-react"
+import { Accordion, AccordionControlProps, ActionIcon, Anchor, Box, Loader, Menu } from "@mantine/core"
+import { IconCheck, IconCirclePlus, IconDots, IconFileDownload, IconFileTextAi } from "@tabler/icons-react"
 import { useQuery, useQueryClient } from "react-query"
 import { textAnalyze } from "../../api/vision"
 import { notifications } from "@mantine/notifications"
@@ -27,13 +13,9 @@ interface Props extends AccordionControlProps {
 export const VisionMenu: FC<Props> = (props: Props) => {
   const queryClient = useQueryClient()
 
-  const { data, refetch, isLoading } = useQuery(
-    ["analyze", props.id],
-    () => textAnalyze(props.id),
-    {
-      enabled: false
-    }
-  )
+  const { data, refetch, isLoading } = useQuery(["analyze", props.id], () => textAnalyze(props.id), {
+    enabled: false
+  })
 
   const handleVision = () => refetch()
 
@@ -72,10 +54,7 @@ export const VisionMenu: FC<Props> = (props: Props) => {
                 Скачать
               </Anchor>
             </Menu.Item>
-            <Menu.Item
-              icon={<IconFileTextAi size={14} />}
-              onClick={handleVision}
-            >
+            <Menu.Item icon={<IconFileTextAi size={14} />} onClick={handleVision}>
               {isLoading ? <Loader size={18} /> : "Распознать текст"}
             </Menu.Item>
           </Menu.Dropdown>

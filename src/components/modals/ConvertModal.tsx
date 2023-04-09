@@ -16,9 +16,7 @@ export const ConvertModal: FC<Props> = ({ id, opened, close }) => {
 
   const [format, setFormat] = useState<string | null>(null)
 
-  const { mutate, isLoading, data } = useMutation(() =>
-    convertFile({ format: format, fileId: id })
-  )
+  const { mutate, isLoading, data } = useMutation(() => convertFile({ format: format, fileId: id }))
 
   useEffect(() => {
     if (data) {
@@ -42,13 +40,7 @@ export const ConvertModal: FC<Props> = ({ id, opened, close }) => {
   }, [data])
 
   return (
-    <Modal
-      opened={opened}
-      onClose={close}
-      title="Конвертировать файл"
-      radius="md"
-      centered
-    >
+    <Modal opened={opened} onClose={close} title="Конвертировать файл" radius="md" centered>
       <Flex direction="column" justify="space-between" gap={20} mih={150}>
         <Select
           label="Выберите формат для конвертации"
@@ -63,11 +55,7 @@ export const ConvertModal: FC<Props> = ({ id, opened, close }) => {
           maxDropdownHeight={85}
           dropdownPosition="bottom"
         />
-        <Button
-          disabled={format === null}
-          loading={isLoading}
-          onClick={() => mutate()}
-        >
+        <Button disabled={format === null} loading={isLoading} onClick={() => mutate()}>
           Конвертировать
         </Button>
       </Flex>

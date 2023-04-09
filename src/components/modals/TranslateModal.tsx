@@ -55,13 +55,7 @@ export const TranslateModal: FC<Props> = ({ id, opened, close }) => {
   }, [data])
 
   return (
-    <Modal
-      opened={opened}
-      onClose={close}
-      title="Перевод текста"
-      radius="md"
-      centered
-    >
+    <Modal opened={opened} onClose={close} title="Перевод текста" radius="md" centered>
       <Flex direction="column" justify="space-between" gap={20} mih={150}>
         <Select
           label="Выберите язык для перевода"
@@ -78,11 +72,7 @@ export const TranslateModal: FC<Props> = ({ id, opened, close }) => {
           maxDropdownHeight={85}
           dropdownPosition="bottom"
         />
-        <Button
-          disabled={language === null}
-          loading={isLoading || analyzeLoading}
-          onClick={() => refetch()}
-        >
+        <Button disabled={language === null} loading={isLoading || analyzeLoading} onClick={() => refetch()}>
           Перевести
         </Button>
       </Flex>

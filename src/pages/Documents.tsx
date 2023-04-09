@@ -109,25 +109,13 @@ export const Documents: FC<Props> = () => {
         <Flex align="center" justify="space-between">
           <Title order={2}>Мои документы</Title>
           <UploadDocumentModal opened={opened} close={close} />
-          <Button
-            radius="md"
-            rightIcon={<IconUpload size="1rem" />}
-            onClick={open}
-          >
+          <Button radius="md" rightIcon={<IconUpload size="1rem" />} onClick={open}>
             Загрузить
           </Button>
         </Flex>
         <Flex align="center" gap={20} justify="space-between">
-          <MultiSelect
-            data={formats}
-            placeholder="Форматы файлов"
-            radius="md"
-          />
-          <Input
-            icon={<IconSearch size="1rem" />}
-            placeholder="Поиск"
-            radius="md"
-          />
+          <MultiSelect data={formats} placeholder="Форматы файлов" radius="md" />
+          <Input icon={<IconSearch size="1rem" />} placeholder="Поиск" radius="md" />
         </Flex>
         <Accordion chevronPosition="right" variant="contained" radius="md">
           {items}

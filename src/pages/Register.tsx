@@ -31,8 +31,7 @@ export const Register: FC<Props> = () => {
     },
 
     validate: {
-      confirmPassword: (value, values) =>
-        value !== values.password ? "Пароли не совпадают" : null
+      confirmPassword: (value, values) => (value !== values.password ? "Пароли не совпадают" : null)
     }
   })
 
@@ -46,10 +45,10 @@ export const Register: FC<Props> = () => {
         withCloseButton: true,
         autoClose: 5000,
         title: "Аккаунт успешно зарегистрирован",
-        message: 'Теперь вы можете войти в свою учетную запись',
-        color: 'green',
-        icon: <IconCheck />,
-      });
+        message: "Теперь вы можете войти в свою учетную запись",
+        color: "green",
+        icon: <IconCheck />
+      })
       navigate("/login")
     }
   }, [data])
@@ -68,21 +67,9 @@ export const Register: FC<Props> = () => {
         </Link>
       </Text>
 
-      <Paper
-        withBorder
-        shadow="md"
-        p={30}
-        mt={30}
-        radius="md"
-        sx={{ width: "100%" }}
-      >
+      <Paper withBorder shadow="md" p={30} mt={30} radius="md" sx={{ width: "100%" }}>
         <form onSubmit={form.onSubmit(() => mutate())}>
-          <TextInput
-            label="Email"
-            placeholder="me@example.com"
-            required
-            {...form.getInputProps("email")}
-          />
+          <TextInput label="Email" placeholder="me@example.com" required {...form.getInputProps("email")} />
           <PasswordInput
             label="Пароль"
             placeholder="•••••••••••••"
