@@ -20,7 +20,7 @@ import { IconCheck } from "@tabler/icons-react"
 
 interface Props {}
 
-export const RegisterPage: FC<Props> = () => {
+export const Register: FC<Props> = () => {
   const navigate = useNavigate()
 
   const form = useForm({

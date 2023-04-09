@@ -1,4 +1,5 @@
 import React, { FC } from "react"
+import styles from "./Documents.module.scss"
 import {
   Accordion,
   Button,
@@ -21,6 +22,8 @@ import { parseTime } from "../utils/parseTime"
 import { UploadDocumentModal } from "../components/modals/UploadDocumentModal"
 import { useDisclosure } from "@mantine/hooks"
 import { DocumentMenu } from "../components/menus/DocumentMenu"
+import { getFiles } from "../api/files"
+import { ConvertMenu } from "../components/menus/ConvertMenu"
 
 interface Props {}
 
@@ -48,10 +51,8 @@ const AccordionLabel: FC<any> = ({ name, updated_at }) => {
   )
 }
 
-export const Documents: FC<Props> = () => {
-  const [opened, { open, close }] = useDisclosure(false)
-
-  const { data } = useQuery("documents", () => getDocuments())
+export const Convert: FC<Props> = () => {
+  const { data } = useQuery("files", () => getFiles())
 
   const ths = (
     <tr>
@@ -88,15 +89,14 @@ export const Documents: FC<Props> = () => {
     data && data.length > 0
       ? data.map((item: any) => (
           <Accordion.Item value={item?.id} key={item?.id}>
-            <DocumentMenu id={item?.id}>
+            <ConvertMenu id={item?.id} url={item?.url}>
               <AccordionLabel {...item} />
-            </DocumentMenu>
+            </ConvertMenu>
             <Accordion.Panel>
-              {item?.description && <Text size="sm">{item?.description}</Text>}
               <Divider my="sm" variant="dashed" />
               <Table verticalSpacing="sm" striped>
                 <thead>{ths}</thead>
-                <tbody>{getRows(item?.File)}</tbody>
+                <tbody>{getRows(item?.Format)}</tbody>
               </Table>
             </Accordion.Panel>
           </Accordion.Item>
@@ -107,15 +107,7 @@ export const Documents: FC<Props> = () => {
     <>
       <Flex direction="column" gap={30} p={10}>
         <Flex align="center" justify="space-between">
-          <Title order={2}>Мои документы</Title>
-          <UploadDocumentModal opened={opened} close={close} />
-          <Button
-            radius="md"
-            rightIcon={<IconUpload size="1rem" />}
-            onClick={open}
-          >
-            Загрузить
-          </Button>
+          <Title order={2}>Конвертация файлов</Title>
         </Flex>
         <Flex align="center" gap={20} justify="space-between">
           <MultiSelect

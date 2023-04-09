@@ -6,15 +6,19 @@ import { User } from "../components/User"
 import { Logo } from "../components/Logo"
 import { getProfile } from "../api/auth"
 import { useQuery } from "react-query"
+import { useAtom } from "jotai"
+import { userAtom } from "../atoms/user"
 
 export const Dashboard: FC = () => {
   const navigate = useNavigate()
 
+  const [, setUser] = useAtom(userAtom)
   const { data } = useQuery("profile", getProfile)
 
   const handleLogOut = () => {
     localStorage.removeItem("accessToken")
     localStorage.removeItem("refreshToken")
+    setUser({ isAuthorized: false })
     navigate("/login")
   }
 

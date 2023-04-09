@@ -19,10 +19,10 @@ import { useAtom } from "jotai"
 
 interface Props {}
 
-export const LoginPage: FC<Props> = () => {
+export const Login: FC<Props> = () => {
   const navigate = useNavigate()
 
-  const [, setUser] = useAtom(userAtom)
+  const [user, setUser] = useAtom(userAtom)
 
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
@@ -34,9 +34,13 @@ export const LoginPage: FC<Props> = () => {
       localStorage.setItem("accessToken", data.accessToken)
       localStorage.setItem("refreshToken", data.refreshToken)
       setUser({ isAuthorized: true })
-      navigate("/documents")
+      navigate("/")
     }
   }, [data])
+
+  useEffect(() => {
+    if (user.isAuthorized) navigate("/")
+  }, [user])
 
   return (
     <Container size={420} miw={370} my={40}>

@@ -1,7 +1,6 @@
 import React, { FC } from "react"
 import {
   Accordion,
-  Button,
   Text,
   Flex,
   Group,
@@ -12,15 +11,15 @@ import {
   Box,
   Table,
   Divider,
-  Anchor
+  Anchor,
 } from "@mantine/core"
-import { IconSearch, IconUpload } from "@tabler/icons-react"
+import { IconSearch } from "@tabler/icons-react"
 import { useQuery } from "react-query"
-import { getDocuments } from "../api/documents"
 import { parseTime } from "../utils/parseTime"
-import { UploadDocumentModal } from "../components/modals/UploadDocumentModal"
-import { useDisclosure } from "@mantine/hooks"
-import { DocumentMenu } from "../components/menus/DocumentMenu"
+import { getFiles } from "../api/files"
+import { VisionMenu } from "../components/menus/VisionMenu"
+import { saveAs } from "file-saver"
+import { TranslateMenu } from "../components/menus/TranslateMenu"
 
 interface Props {}
 
@@ -31,6 +30,11 @@ const formats = [
   { value: "jpg", label: "JPG" },
   { value: "png", label: "PNG" }
 ]
+
+const saveTextAsFile = (text: string, filename: string) => {
+  const file = new Blob([text], { type: "text/plain;charset=utf-8" })
+  saveAs(file, filename)
+}
 
 const AccordionLabel: FC<any> = ({ name, updated_at }) => {
   return (
@@ -48,17 +52,13 @@ const AccordionLabel: FC<any> = ({ name, updated_at }) => {
   )
 }
 
-export const Documents: FC<Props> = () => {
-  const [opened, { open, close }] = useDisclosure(false)
-
-  const { data } = useQuery("documents", () => getDocuments())
+export const Translate: FC<Props> = () => {
+  const { data } = useQuery("files", () => getFiles())
 
   const ths = (
     <tr>
       <th>Дата</th>
-      <th>Название</th>
-      <th>Формат</th>
-      <th>Размер</th>
+      <th>Текст</th>
       <th></th>
     </tr>
   )
@@ -68,17 +68,17 @@ export const Documents: FC<Props> = () => {
       <tr key={element?.id}>
         <td>{parseTime(element?.created_at)}</td>
         <td>
-          <Text fw={500}>{element?.name}</Text>
-        </td>
-        <td>
-          <Badge>{element?.format}</Badge>
-        </td>
-        <td>
-          <Badge color="green">{element?.size / 1000} КБ</Badge>
+          <Text fw={500}>{element?.content?.slice(0, 40)}...</Text>
         </td>
         <td>
           <Flex justify="flex-end">
-            <Anchor href={element?.url}>Скачать</Anchor>
+            <Anchor
+              onClick={() =>
+                saveTextAsFile(element?.content, `${element?.id}.txt`)
+              }
+            >
+              Скачать
+            </Anchor>
           </Flex>
         </td>
       </tr>
@@ -88,15 +88,14 @@ export const Documents: FC<Props> = () => {
     data && data.length > 0
       ? data.map((item: any) => (
           <Accordion.Item value={item?.id} key={item?.id}>
-            <DocumentMenu id={item?.id}>
+            <TranslateMenu id={item?.id} url={item?.url}>
               <AccordionLabel {...item} />
-            </DocumentMenu>
+            </TranslateMenu>
             <Accordion.Panel>
-              {item?.description && <Text size="sm">{item?.description}</Text>}
               <Divider my="sm" variant="dashed" />
               <Table verticalSpacing="sm" striped>
                 <thead>{ths}</thead>
-                <tbody>{getRows(item?.File)}</tbody>
+                <tbody>{getRows(item?.Translation)}</tbody>
               </Table>
             </Accordion.Panel>
           </Accordion.Item>
@@ -107,15 +106,7 @@ export const Documents: FC<Props> = () => {
     <>
       <Flex direction="column" gap={30} p={10}>
         <Flex align="center" justify="space-between">
-          <Title order={2}>Мои документы</Title>
-          <UploadDocumentModal opened={opened} close={close} />
-          <Button
-            radius="md"
-            rightIcon={<IconUpload size="1rem" />}
-            onClick={open}
-          >
-            Загрузить
-          </Button>
+          <Title order={2}>Перевод текста</Title>
         </Flex>
         <Flex align="center" gap={20} justify="space-between">
           <MultiSelect
