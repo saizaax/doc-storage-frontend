@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  frontend:
+    build: .
+    ports:
+      - 4044:4044
+    networks:
+      - default
+
+networks:
+  default:
+    external: false
