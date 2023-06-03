@@ -34,18 +34,18 @@ jobs:
           docker push $IMAGE_NAME:latest
           docker push $IMAGE_NAME:$GITHUB_RUN_NUMBER
 
-  # update-service:
-  #   needs: [build-and-push]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Update Docker service
-  #       uses: appleboy/ssh-action@master
-  #       env:
-  #         IMAGE: ${{ env.IMAGE_NAME }}:${{ github.run_number }}
-  #         SERVICE: ${{ env.SERVICE_NAME }}
-  #       with:
-  #         host: ${{ secrets.VM_HOST }}
-  #         username: ${{ secrets.VM_USER }}
-  #         key: ${{ secrets.VM_SSH_KEY }}
-  #         envs: IMAGE,SERVICE
-  #         script: docker service update --image $IMAGE $SERVICE --with-registry-auth
+  update-service:
+    needs: [build-and-push]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Docker service
+        uses: appleboy/ssh-action@master
+        env:
+          IMAGE: ${{ env.IMAGE_NAME }}:${{ github.run_number }}
+          SERVICE: ${{ env.SERVICE_NAME }}
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          envs: IMAGE,SERVICE
+          script: docker service update --image $IMAGE $SERVICE --with-registry-auth
