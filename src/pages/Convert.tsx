@@ -35,11 +35,11 @@ const formats = [
   { value: "png", label: "PNG" }
 ]
 
-const AccordionLabel: FC<any> = ({ name, updated_at }) => {
+const AccordionLabel: FC<any> = ({ format, name, updated_at }) => {
   return (
     <Group noWrap>
       <Box p="sm">
-        <Badge>PDF</Badge>
+        <Badge>DOC</Badge>
       </Box>
       <div>
         <Text>{name}</Text>

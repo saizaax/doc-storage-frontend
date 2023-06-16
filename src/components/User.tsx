@@ -30,12 +30,16 @@ export const User: FC<Props> = ({ username, email, avatar }) => {
 
           "&:hover": {
             backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0]
+          },
+
+          "@media screen and (max-width: 768px)": {
+            padding: 0
           }
         }}
       >
         <Group>
           <Avatar src={avatar} radius="xl" />
-          <Box sx={{ flex: 1 }}>
+          <Box sx={{ flex: 1, "@media (max-width: 768px)": { display: "none" } }}>
             <Text size="sm" weight={500}>
               {username}
             </Text>

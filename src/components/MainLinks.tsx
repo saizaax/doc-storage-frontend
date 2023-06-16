@@ -18,6 +18,12 @@ interface MainLinkProps {
 }
 
 function MainLink({ icon, color, label, active, url }: MainLinkProps) {
+  const textStyles = {
+    "@media (max-width: 768px)": {
+      display: "none"
+    }
+  }
+
   return (
     <Link to={url}>
       <UnstyledButton
@@ -38,7 +44,9 @@ function MainLink({ icon, color, label, active, url }: MainLinkProps) {
           <ThemeIcon color={color} variant="light">
             {icon}
           </ThemeIcon>
-          <Text size="sm">{label}</Text>
+          <Text size="sm" sx={textStyles}>
+            {label}
+          </Text>
         </Group>
       </UnstyledButton>
     </Link>

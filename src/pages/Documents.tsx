@@ -12,7 +12,9 @@ import {
   Box,
   Table,
   Divider,
-  Anchor
+  Anchor,
+  ScrollArea,
+  Sx
 } from "@mantine/core"
 import { IconSearch, IconUpload } from "@tabler/icons-react"
 import { useQuery } from "react-query"
@@ -32,11 +34,11 @@ const formats = [
   { value: "png", label: "PNG" }
 ]
 
-const AccordionLabel: FC<any> = ({ name, updated_at }) => {
+const AccordionLabel: FC<any> = ({ format, name, updated_at }) => {
   return (
-    <Group noWrap>
+    <Group>
       <Box p="sm">
-        <Badge>PDF</Badge>
+        <Badge>DOC</Badge>
       </Box>
       <div>
         <Text>{name}</Text>
@@ -54,7 +56,7 @@ export const Documents: FC<Props> = () => {
   const { data } = useQuery("documents", () => getDocuments())
 
   const ths = (
-    <tr>
+    <tr style={{ overflowY: "scroll", maxWidth: "100%" }}>
       <th>Дата</th>
       <th>Название</th>
       <th>Формат</th>
@@ -84,6 +86,12 @@ export const Documents: FC<Props> = () => {
       </tr>
     ))
 
+  const tableHeadStyles = {
+    "@media screen and (max-width: 768px)": {
+      display: "none"
+    }
+  }
+
   const items =
     data && data.length > 0
       ? data.map((item: any) => (
@@ -91,29 +99,47 @@ export const Documents: FC<Props> = () => {
             <DocumentMenu id={item?.id}>
               <AccordionLabel {...item} />
             </DocumentMenu>
-            <Accordion.Panel>
+            <Accordion.Panel sx={{ position: "relative" }}>
               {item?.description && <Text size="sm">{item?.description}</Text>}
               <Divider my="sm" variant="dashed" />
-              <Table verticalSpacing="sm" striped>
-                <thead>{ths}</thead>
-                <tbody>{getRows(item?.File)}</tbody>
-              </Table>
+              <ScrollArea>
+                <Table verticalSpacing="sm" striped sx={{ maxWidth: "100%" }}>
+                  <thead>{ths}</thead>
+                  <tbody>{getRows(item?.File)}</tbody>
+                </Table>
+              </ScrollArea>
             </Accordion.Panel>
           </Accordion.Item>
         ))
       : []
 
+  const titleStyles: Sx = {
+    "@media screen and (max-width: 768px)": {
+      flexDirection: "column",
+      gap: "20px",
+      alignItems: "flex-start"
+    }
+  }
+
+  const filterStyles: Sx = {
+    "@media screen and (max-width: 768px)": {
+      flexDirection: "column",
+      gap: "20px",
+      alignItems: "flex-start"
+    }
+  }
+
   return (
     <>
       <Flex direction="column" gap={30} p={10}>
-        <Flex align="center" justify="space-between">
+        <Flex align="center" justify="space-between" sx={titleStyles}>
           <Title order={2}>Мои документы</Title>
           <UploadDocumentModal opened={opened} close={close} />
           <Button radius="md" rightIcon={<IconUpload size="1rem" />} onClick={open}>
             Загрузить
           </Button>
         </Flex>
-        <Flex align="center" gap={20} justify="space-between">
+        <Flex align="center" gap={20} justify="space-between" sx={filterStyles}>
           <MultiSelect data={formats} placeholder="Форматы файлов" radius="md" />
           <Input icon={<IconSearch size="1rem" />} placeholder="Поиск" radius="md" />
         </Flex>

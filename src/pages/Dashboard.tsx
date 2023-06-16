@@ -27,7 +27,15 @@ export const Dashboard: FC = () => {
       padding="md"
       fixed={false}
       navbar={
-        <Navbar width={{ base: 300 }} p="xs">
+        <Navbar
+          width={{ base: 300 }}
+          sx={{
+            "@media screen and (max-width: 768px)": {
+              width: "fit-content"
+            }
+          }}
+          p="xs"
+        >
           <Navbar.Section grow mt="xs">
             <MainLinks />
           </Navbar.Section>

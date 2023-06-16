@@ -13,6 +13,8 @@ export const DocumentMenu: FC<Props> = (props: Props) => {
   const [openedUpload, { open: openUpload, close: closeUpload }] = useDisclosure(false)
   const [openedDelete, { open: openDelete, close: closeDelete }] = useDisclosure(false)
 
+  
+
   return (
     <>
       <DeleteModal id={props.id} opened={openedDelete} close={closeDelete} />
